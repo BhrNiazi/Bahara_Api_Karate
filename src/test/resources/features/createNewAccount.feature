@@ -1,3 +1,4 @@
+@Test
 Feature: Creating new account
 
   Background: 
@@ -10,12 +11,14 @@ Feature: Creating new account
 
   Scenario: Create new account
    Given url "https://tek-insurance-api.azurewebsites.net"
+   * def result = Java.type('api.data.emailGenerator')
+   * def autoEmail = result.getEmail()
     Given path "/api/accounts/add-primary-account"
     And header Authorization = "Bearer " + response.token
     And request
       """
       
-       { "email": "Bahar1@gmail.com",
+       { "email": "#(autoEmail)",
         "firstName": "Bahar",
         "lastName": "Niazi",
         "title": "Ms.",
